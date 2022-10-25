@@ -1,17 +1,23 @@
+
 //  Factorial using Recursion and can find for big integers
-#include<stdio.h>
-long int multiplyNumbers(int n);
-int main() {
-    int n;
-    printf("Enter a positive integer: ");
-    scanf("%d",&n);
-    printf("Factorial of %d = %ld", n, multiplyNumbers(n));
+#include <iostream>
+using namespace std;
+ 
+// Function to find factorial
+// of given number
+unsigned int factorial(unsigned int n)
+{
+    if (n == 0 || n == 1)
+        return 1;
+    return n * factorial(n - 1);
+}
+ 
+// Driver code
+int main()
+{
+    int num = 5;
+    cout << "Factorial of "
+         << num << " is " << factorial(num) << endl;
     return 0;
 }
 
-long int multiplyNumbers(int n) {
-    if (n>=1)
-        return n*multiplyNumbers(n-1);
-    else
-        return 1;
-}
