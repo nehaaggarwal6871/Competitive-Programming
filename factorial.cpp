@@ -1,13 +1,17 @@
-#include <iostream>  
-using namespace std;  
-int main()  
-{  
-   int i,fact=1,number;    
-  cout<<"Enter any Number: ";    
- cin>>number;    
-  for(i=1;i<=number;i++){    
-      fact=fact*i;    
-  }    
-  cout<<"Factorial of " <<number<<" is: "<<fact<<endl;  
-  return 0;  
-}  
+//  Factorial using Recursion and can find for big integers
+#include<stdio.h>
+long int multiplyNumbers(int n);
+int main() {
+    int n;
+    printf("Enter a positive integer: ");
+    scanf("%d",&n);
+    printf("Factorial of %d = %ld", n, multiplyNumbers(n));
+    return 0;
+}
+
+long int multiplyNumbers(int n) {
+    if (n>=1)
+        return n*multiplyNumbers(n-1);
+    else
+        return 1;
+}
