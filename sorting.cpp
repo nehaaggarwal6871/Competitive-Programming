@@ -1,53 +1,70 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
  
-//Swap function
-void swap(int *xp, int *yp)
+int partition(int arr[], int start, int end)
 {
-    int temp = *xp;
-    *xp = *yp;
-    *yp = temp;
-}
  
-void selectionSort(int arr[], int n)
-{
-    int i, j, min_idx;
+    int pivot = arr[start];
  
-    // One by one move boundary of
-    // unsorted subarray
-    for (i = 0; i < n-1; i++)
-    {
-       
-        // Find the minimum element in
-        // unsorted array
-        min_idx = i;
-        for (j = i+1; j < n; j++)
-        if (arr[j] < arr[min_idx])
-            min_idx = j;
- 
-        // Swap the found minimum element
-        // with the first element
-        if(min_idx!=i)
-            swap(&arr[min_idx], &arr[i]);
+    int count = 0;
+    for (int i = start + 1; i <= end; i++) {
+        if (arr[i] <= pivot)
+            count++;
     }
+ 
+    // Giving pivot element its correct position
+    int pivotIndex = start + count;
+    swap(arr[pivotIndex], arr[start]);
+ 
+    // Sorting left and right parts of the pivot element
+    int i = start, j = end;
+ 
+    while (i < pivotIndex && j > pivotIndex) {
+ 
+        while (arr[i] <= pivot) {
+            i++;
+        }
+ 
+        while (arr[j] > pivot) {
+            j--;
+        }
+ 
+        if (i < pivotIndex && j > pivotIndex) {
+            swap(arr[i++], arr[j--]);
+        }
+    }
+ 
+    return pivotIndex;
 }
  
-//Function to print an array
-void printArray(int arr[], int size)
+void quickSort(int arr[], int start, int end)
 {
-    int i;
-    for (i=0; i < size; i++)
-        cout << arr[i] << " ";
-    cout << endl;
+ 
+    // base case
+    if (start >= end)
+        return;
+ 
+    // partitioning the array
+    int p = partition(arr, start, end);
+ 
+    // Sorting the left part
+    quickSort(arr, start, p - 1);
+ 
+    // Sorting the right part
+    quickSort(arr, p + 1, end);
 }
  
-// Driver program to test above functions
 int main()
 {
-    int arr[] = {64, 25, 12, 22, 11};
-    int n = sizeof(arr)/sizeof(arr[0]);
-    selectionSort(arr, n);
-    cout << "Sorted array: \n";
-    printArray(arr, n);
+ 
+    int arr[] = { 9, 3, 4, 2, 1, 8 };
+    int n = 6;
+ 
+    quickSort(arr, 0, n - 1);
+ 
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+ 
     return 0;
 }
