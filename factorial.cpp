@@ -15,7 +15,9 @@ unsigned int factorial(unsigned int n)
 // Driver code
 int main()
 {
-    int num = 5;
+    int num ;
+    cout<<"Enter a number = ";
+    cin>>num;
     cout << "Factorial of "
          << num << " is " << factorial(num) << endl;
     return 0;
