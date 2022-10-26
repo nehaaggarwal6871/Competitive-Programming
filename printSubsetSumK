@@ -1,44 +1,57 @@
-#include <bits/stdc++.h>
+// void printSubsetSumToK(int input[], int size, int k) {
+//     // Write your code here
+// }
+
+#include<bits/stdc++.h>
+
+#include <iostream>
 using namespace std;
- 
-// The vector v stores current subset.
-void printAllSubsetsRec(int arr[], int n, vector<int> v,
-                        int sum)
+
+void psubset(int input[],int size,int k,int output[],int m)
 {
-    // If remaining sum is 0, then print all
-    // elements of current subset.
-    if (sum == 0) {
-        for (auto x : v)
-            cout << x << " ";
-        cout << endl;
-        return;
+    if(size==0)
+    {
+        if(k==0)
+        {
+            for(int i=0;i<m;i++)
+            {
+                cout<<output[i]<<" ";
+            }
+            cout<<endl;
+            return;
+        }
+        else
+            return;
     }
- 
-    // If no remaining elements,
-    if (n == 0)
-        return;
- 
-    // We consider two cases for every element.
-    // a) We do not include last element.
-    // b) We include last element in current subset.
-    printAllSubsetsRec(arr, n - 1, v, sum);
-    v.push_back(arr[n - 1]);
-    printAllSubsetsRec(arr, n - 1, v, sum - arr[n - 1]);
+    
+    int o1[m+1];
+    int i;
+    for(i=0;i<m;i++)
+    {
+        o1[i]=output[i];
+    }
+    o1[i]=input[0];
+    psubset(input+1,size-1,k-input[0],o1,m+1);
+    psubset(input+1,size-1,k,output,m);
 }
- 
-// Wrapper over printAllSubsetsRec()
-void printAllSubsets(int arr[], int n, int sum)
-{
-    vector<int> v;
-    printAllSubsetsRec(arr, n, v, sum);
+
+
+
+
+
+void printSubsetSumToK(int input[], int size, int k) {
+    // Write your code here
+    int m=0;
+    int output[m];
+    psubset(input,size,k,output,m);
 }
- 
-// Driver code
-int main()
-{
-    int arr[] = { 2, 5, 8, 4, 6, 11 };
-    int sum = 13;
-    int n = sizeof(arr) / sizeof(arr[0]);
-    printAllSubsets(arr, n, sum);
-    return 0;
+
+
+int main() {
+  int input[1000],length,k;
+  cin >> length;
+  for(int i=0; i < length; i++)
+    cin >> input[i];
+  cin>>k;
+  printSubsetSumToK(input, length,k);
 }
